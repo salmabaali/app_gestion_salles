@@ -90,6 +90,7 @@ class ViewSalle(ctk.CTk):
             print("Erreur lors de la modification")
 
     def supprimer_salle(self):
+        self.zone_affichage.insert("end", "\nSalle supprimée")
         code = self.input_code.get()
         print("Demande de suppression en cours...")
         msg = self.service_salle.supprimer_salle(code)
