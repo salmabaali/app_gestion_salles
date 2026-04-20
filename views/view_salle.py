@@ -66,10 +66,16 @@ class ViewSalle(ctk.CTk):
 
             success, msg = self.service_salle.ajouter_salle(salle)
 
-            self.zone_affichage.insert("end", f"\n{msg}")
+            if success:
+                messagebox.showinfo("Succès", msg)
+            else:
+                messagebox.showerror("Erreur", msg)
 
         except:
-            self.zone_affichage.insert("end", "\nErreur : capacité invalide")
+            messagebox.showerror("Erreur", "Veuillez entrer une capacité valide")
+
+
+
 
 
 
