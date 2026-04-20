@@ -1,5 +1,4 @@
-class ViewSalle:
-    pass
+
 import customtkinter as ctk
 from models.salle import Salle
 from services.services_salle import ServiceSalle
@@ -80,7 +79,7 @@ class ViewSalle(ctk.CTk):
             )
 
             success, msg = self.service_salle.modifier_salle(salle)
-            print("Modification :", msg)
+            print(f"[INFO] Modification : {msg}")
 
         except:
             print("Erreur lors de la modification")
