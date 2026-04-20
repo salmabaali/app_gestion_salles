@@ -86,6 +86,7 @@ class ViewSalle(ctk.CTk):
 
     def supprimer_salle(self):
         code = self.input_code.get()
+        print("Demande de suppression en cours...")
         msg = self.service_salle.supprimer_salle(code)
         print("Suppression :", msg)
 
