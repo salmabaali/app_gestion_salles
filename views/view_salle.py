@@ -118,15 +118,20 @@ class ViewSalle(ctk.CTk):
             messagebox.showinfo("Suppression", "Salle supprimée avec succès")
 
     def rechercher_salle(self):
-        code = self.input_code.get()
+        code = self.input_code.get().strip()
         salle = self.service_salle.rechercher_salle(code)
 
-        self.zone_affichage.delete("1.0", "end")
-
         if salle:
-            self.zone_affichage.insert(
-                "end",
-                f"{salle.code} | {salle.description} | {salle.categorie} | {salle.capacite}"
-            )
+            self.input_desc.delete(0, "end")
+            self.input_desc.insert(0, salle.description)
+
+            self.input_cat.delete(0, "end")
+            self.input_cat.insert(0, salle.categorie)
+
+            self.input_cap.delete(0, "end")
+            self.input_cap.insert(0, salle.capacite)
+
+            messagebox.showinfo("Recherche", "Salle trouvée avec succès")
         else:
-            self.zone_affichage.insert("end", "Aucune salle trouvée")
+            messagebox.showwarning("Recherche", "Aucune salle trouvée")
+
