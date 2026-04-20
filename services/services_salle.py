@@ -38,3 +38,6 @@ class ServiceSalle:
 
     def recuperer_salles(self):
         return self.dao_salle.get_salles()
+
+    def afficher_salles(self):
+        return self.dao_salle.get_salles()
