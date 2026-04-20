@@ -141,4 +141,8 @@ class ViewSalle(ctk.CTk):
         else:
             messagebox.showwarning("Recherche", "Aucune salle trouvée")
             self.input_code.delete(0, "end")
+            self.input_code.delete(0, "end")
+            self.input_desc.delete(0, "end")
+            self.input_cat.delete(0, "end")
+            self.input_cap.delete(0, "end")
 
