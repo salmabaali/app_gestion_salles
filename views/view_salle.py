@@ -9,8 +9,8 @@ class ViewSalle(ctk.CTk):
 
     def __init__(self):
         super().__init__()
+        self.title("Gestion des salles")
 
-        self.title("Application de gestion des salles")
         self.geometry("520x420")
 
         self.service_salle = ServiceSalle()
