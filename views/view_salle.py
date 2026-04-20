@@ -74,6 +74,10 @@ class ViewSalle(ctk.CTk):
 
         except:
             messagebox.showerror("Erreur", "Veuillez entrer une capacité valide")
+            self.input_code.delete(0, "end")
+            self.input_desc.delete(0, "end")
+            self.input_cat.delete(0, "end")
+            self.input_cap.delete(0, "end")
 
 
 
