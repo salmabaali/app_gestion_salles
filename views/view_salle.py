@@ -54,6 +54,7 @@ class ViewSalle(ctk.CTk):
 
     def ajouter_salle(self):
         try:
+            self.zone_affichage.insert("end", "\nSalle ajoutée")
             salle = Salle(
                 self.input_code.get(),
                 self.input_desc.get(),
