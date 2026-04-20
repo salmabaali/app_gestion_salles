@@ -1,17 +1,15 @@
-
 import customtkinter as ctk
 from models.salle import Salle
 from services.services_salle import ServiceSalle
+from tkinter import messagebox
 
 
 class ViewSalle(ctk.CTk):
 
     def __init__(self):
-        self.zone_affichage = ctk.CTkTextbox(self, height=120)
-        self.zone_affichage.pack(pady=10, padx=10, fill="x")
         super().__init__()
-        self.title("Gestion des salles")
 
+        self.title("Gestion des salles")
         self.geometry("540x430")
 
         self.service_salle = ServiceSalle()
@@ -24,7 +22,6 @@ class ViewSalle(ctk.CTk):
         self.input_code = ctk.CTkEntry(self.cadre_info)
         self.input_code.grid(row=0, column=1, padx=5, pady=5)
 
-
         ctk.CTkLabel(self.cadre_info, text="Description").grid(row=1, column=0, padx=5, pady=5)
         self.input_desc = ctk.CTkEntry(self.cadre_info)
         self.input_desc.grid(row=1, column=1, padx=5, pady=5)
@@ -32,6 +29,7 @@ class ViewSalle(ctk.CTk):
         ctk.CTkLabel(self.cadre_info, text="Catégorie").grid(row=2, column=0, padx=5, pady=5)
         self.input_cat = ctk.CTkEntry(self.cadre_info)
         self.input_cat.grid(row=2, column=1, padx=5, pady=5)
+
         ctk.CTkLabel(self.cadre_info, text="Capacité").grid(row=3, column=0, padx=5, pady=5)
         self.input_cap = ctk.CTkEntry(self.cadre_info)
         self.input_cap.grid(row=3, column=1, padx=5, pady=5)
@@ -40,21 +38,25 @@ class ViewSalle(ctk.CTk):
         self.cadre_actions = ctk.CTkFrame(self)
         self.cadre_actions.pack(pady=10)
 
-        self.btn_ajouter = ctk.CTkButton(self.cadre_actions, text="Ajouter salle", command=self.ajouter_salle)
+        self.btn_ajouter = ctk.CTkButton(self.cadre_actions, text="Ajouter", command=self.ajouter_salle)
         self.btn_ajouter.grid(row=0, column=0, padx=5)
 
-        self.btn_modifier = ctk.CTkButton(self.cadre_actions, text="Modifier ", command=self.modifier_salle)
+        self.btn_modifier = ctk.CTkButton(self.cadre_actions, text="Modifier", command=self.modifier_salle)
         self.btn_modifier.grid(row=0, column=1, padx=5)
 
-        self.btn_supprimer = ctk.CTkButton(self.cadre_actions, text="Supprimer salle", command=self.supprimer_salle)
+        self.btn_supprimer = ctk.CTkButton(self.cadre_actions, text="Supprimer", command=self.supprimer_salle)
         self.btn_supprimer.grid(row=0, column=2, padx=5)
 
-        self.btn_rechercher = ctk.CTkButton(self.cadre_actions, text="Rechercher salle", command=self.rechercher_salle)
+        self.btn_rechercher = ctk.CTkButton(self.cadre_actions, text="Rechercher", command=self.rechercher_salle)
         self.btn_rechercher.grid(row=0, column=3, padx=5)
+
+        self.zone_affichage = ctk.CTkTextbox(self, height=120)
+        self.zone_affichage.pack(pady=10, padx=10, fill="x")
+
+
 
     def ajouter_salle(self):
         try:
-            self.zone_affichage.insert("end", "\nSalle ajoutée")
             salle = Salle(
                 self.input_code.get(),
                 self.input_desc.get(),
@@ -63,14 +65,13 @@ class ViewSalle(ctk.CTk):
             )
 
             success, msg = self.service_salle.ajouter_salle(salle)
-            print(f"[INFO] Résultat ajout : {msg}")
-            self.input_code.delete(0, "end")
-            self.input_desc.delete(0, "end")
-            self.input_cat.delete(0, "end")
-            self.input_cap.delete(0, "end")
+
+            self.zone_affichage.insert("end", f"\n{msg}")
 
         except:
-            print("Erreur : vérifiez la capacité (nombre requis)")
+            self.zone_affichage.insert("end", "\nErreur : capacité invalide")
+
+
 
     def modifier_salle(self):
         try:
@@ -82,37 +83,31 @@ class ViewSalle(ctk.CTk):
             )
 
             success, msg = self.service_salle.modifier_salle(salle)
-            print(f"[INFO] Modification : {msg}")
-            print("Traitement terminé pour ajout")
 
+            self.zone_affichage.insert("end", f"\n{msg}")
 
         except:
-            print("Erreur lors de la modification")
+            self.zone_affichage.insert("end", "\nErreur modification")
+
+
 
     def supprimer_salle(self):
-        self.zone_affichage.insert("end", "\nSalle supprimée")
         code = self.input_code.get()
-        print("Demande de suppression en cours...")
-        msg = self.service_salle.supprimer_salle(code)
-        print("Suppression :", msg)
+        self.service_salle.supprimer_salle(code)
+
+        self.zone_affichage.insert("end", "\nSalle supprimée")
+
 
     def rechercher_salle(self):
         code = self.input_code.get()
         salle = self.service_salle.rechercher_salle(code)
 
+        self.zone_affichage.delete("1.0", "end")
+
         if salle:
-            self.input_desc.delete(0, "end")
-            self.input_desc.insert(0, salle.description)
-
-            self.input_cat.delete(0, "end")
-            self.input_cat.insert(0, salle.categorie)
-
-            self.input_cap.delete(0, "end")
-            self.input_cap.insert(0, salle.capacite)
-
-            self.zone_affichage.delete("1.0", "end")
-
+            self.zone_affichage.insert(
+                "end",
+                f"{salle.code} | {salle.description} | {salle.categorie} | {salle.capacite}"
+            )
         else:
-            self.zone_affichage.insert("end", f"Salle trouvée : {salle.code} - {salle.description}")
-            self.btn_afficher = ctk.CTkButton(self.cadre_actions, text="Afficher salles", command=self.afficher_salles)
-            self.btn_afficher.grid(row=1, column=0, padx=5, pady=5)
+            self.zone_affichage.insert("end", "Aucune salle trouvée")
