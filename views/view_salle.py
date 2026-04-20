@@ -124,29 +124,25 @@ class ViewSalle(ctk.CTk):
 
 
     def rechercher_salle(self):
-        def rechercher_salle(self):
-            code = self.input_code.get().strip()
+        code = self.input_code.get().strip()
 
-            if not code:
-                messagebox.showerror("Erreur", "Veuillez entrer un code pour rechercher")
-                return
+        if not code:
+            messagebox.showerror("Erreur", "Veuillez entrer un code pour rechercher")
+            return
 
-            salle = self.service_salle.rechercher_salle(code)
+        salle = self.service_salle.rechercher_salle(code)
 
-            if salle:
-                self.input_desc.delete(0, "end")
-                self.input_desc.insert(0, salle.description)
+        if salle:
+            self.input_desc.delete(0, "end")
+            self.input_desc.insert(0, salle.description)
 
-                self.input_cat.delete(0, "end")
-                self.input_cat.insert(0, salle.categorie)
+            self.input_cat.delete(0, "end")
+            self.input_cat.insert(0, salle.categorie)
 
-                self.input_cap.delete(0, "end")
-                self.input_cap.insert(0, salle.capacite)
+            self.input_cap.delete(0, "end")
+            self.input_cap.insert(0, salle.capacite)
 
-                messagebox.showinfo("Recherche", "Salle trouvée avec succès")
-            else:
-                messagebox.showwarning("Recherche", "Aucune salle trouvée")
-
-
-
+            messagebox.showinfo("Recherche", "Salle trouvée avec succès")
+        else:
+            messagebox.showwarning("Recherche", "Aucune salle trouvée")
 
