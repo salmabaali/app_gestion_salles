@@ -114,3 +114,5 @@ class ViewSalle(ctk.CTk):
 
         else:
             self.zone_affichage.insert("end", f"Salle trouvée : {salle.code} - {salle.description}")
+            self.btn_afficher = ctk.CTkButton(self.cadre_actions, text="Afficher salles", command=self.afficher_salles)
+            self.btn_afficher.grid(row=1, column=0, padx=5, pady=5)
