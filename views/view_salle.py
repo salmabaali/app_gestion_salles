@@ -106,11 +106,16 @@ class ViewSalle(ctk.CTk):
 
 
     def supprimer_salle(self):
-        code = self.input_code.get()
-        self.service_salle.supprimer_salle(code)
+        def supprimer_salle(self):
+            code = self.input_code.get().strip()
 
-        self.zone_affichage.insert("end", "\nSalle supprimée")
+            if not code:
+                messagebox.showerror("Erreur", "Veuillez entrer le code de la salle à supprimer")
+                return
 
+            self.service_salle.supprimer_salle(code)
+
+            messagebox.showinfo("Suppression", "Salle supprimée avec succès")
 
     def rechercher_salle(self):
         code = self.input_code.get()
