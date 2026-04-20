@@ -52,6 +52,7 @@ class ViewSalle(ctk.CTk):
 
         self.zone_affichage = ctk.CTkTextbox(self, height=120)
         self.zone_affichage.pack(pady=10, padx=10, fill="x")
+        self.zone_affichage.insert("end", "Bienvenue dans l'application de gestion des salles\n")
 
 
 
