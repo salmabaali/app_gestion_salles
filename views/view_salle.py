@@ -7,6 +7,8 @@ from services.services_salle import ServiceSalle
 class ViewSalle(ctk.CTk):
 
     def __init__(self):
+        self.zone_affichage = ctk.CTkTextbox(self, height=120)
+        self.zone_affichage.pack(pady=10, padx=10, fill="x")
         super().__init__()
         self.title("Gestion des salles")
 
@@ -81,6 +83,7 @@ class ViewSalle(ctk.CTk):
             success, msg = self.service_salle.modifier_salle(salle)
             print(f"[INFO] Modification : {msg}")
             print("Traitement terminé pour ajout")
+
 
         except:
             print("Erreur lors de la modification")
