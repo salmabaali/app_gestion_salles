@@ -80,6 +80,7 @@ class ViewSalle(ctk.CTk):
 
             success, msg = self.service_salle.modifier_salle(salle)
             print(f"[INFO] Modification : {msg}")
+            print("Traitement terminé pour ajout")
 
         except:
             print("Erreur lors de la modification")
