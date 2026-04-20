@@ -90,10 +90,18 @@ class ViewSalle(ctk.CTk):
 
             success, msg = self.service_salle.modifier_salle(salle)
 
-            self.zone_affichage.insert("end", f"\n{msg}")
+            if success:
+                messagebox.showinfo("Modification", msg)
+            else:
+                messagebox.showerror("Erreur", msg)
 
         except:
-            self.zone_affichage.insert("end", "\nErreur modification")
+            messagebox.showerror("Erreur", "Erreur lors de la modification")
+
+
+
+
+
 
 
 
