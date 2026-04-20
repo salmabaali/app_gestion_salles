@@ -108,6 +108,7 @@ class ViewSalle(ctk.CTk):
             self.input_cap.delete(0, "end")
             self.input_cap.insert(0, salle.capacite)
 
-            print(f"Salle {code} trouvée et affichée")
+            self.zone_affichage.delete("1.0", "end")
+
         else:
-            print("Aucune salle trouvée malheuresement :(")
+            self.zone_affichage.insert("end", f"Salle trouvée : {salle.code} - {salle.description}")
