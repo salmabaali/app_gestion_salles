@@ -41,3 +41,14 @@ class ServiceSalle:
 
     def afficher_salles(self):
         return self.dao_salle.get_salles()
+
+    def afficher_salles(self):
+        salles = self.service_salle.recuperer_salles()
+
+        self.zone_affichage.delete("1.0", "end")
+
+        if salles:
+            for s in salles:
+                self.zone_affichage.insert("end", f"{s.code} | {s.description} | {s.categorie} | {s.capacite}\n")
+        else:
+            self.zone_affichage.insert("end", "Aucune salle enregistrée")
